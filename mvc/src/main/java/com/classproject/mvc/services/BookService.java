@@ -36,4 +36,37 @@ public class BookService {
             return null;
         }
     }
+    
+    // Deletes a book by using book id
+    public void deleteBook(Long id) {
+    	bookRepo.deleteById(id);
+    	
+    }
+    
+    //update book
+    public Book updateBook(Long id, String title, String desc, String lang, Integer numOfPages) {
+    	
+    	Book book;
+    	
+    	Optional<Book> optionalBook = bookRepo.findById(id);
+        if(optionalBook.isPresent()) {
+            book = optionalBook.get();
+        } else {
+            return null;
+        }
+        
+        book.setTitle(title);
+        book.setDescription(desc);
+        book.setLanguage(lang);
+        book.setNumberOfPages(numOfPages);
+        bookRepo.save(book);
+        
+        
+        return book;
+        
+        
+    }
+    
+    
+   
 }
